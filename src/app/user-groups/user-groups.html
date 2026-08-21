@@ -1,0 +1,22 @@
+<h2 class="mb-4 text-sm font-semibold text-gray-700">
+  {{ user().profile.firstName }} {{ user().profile.lastName }} groups
+</h2>
+
+@if (groupsResource.isLoading()) {
+  <p class="text-sm text-gray-500">Loading groups...</p>
+} @else if (groupsResource.error()) {
+  <p class="text-sm text-red-600" role="alert">Failed to load groups.</p>
+} @else {
+  <p class="py-3">Group count: {{ groupCount() }}</p>
+  
+  <div class="grid gap-3 sm:grid-cols-2">
+    @for (group of displayGroups(); track group.id) {
+      <app-group-panel
+        [heading]="group.profile.name"
+        [description]="group.profile.description ?? ''"
+      />
+    } @empty {
+      <p class="text-sm text-gray-500">No groups found.</p>
+    }
+  </div>
+}

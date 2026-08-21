@@ -2,11 +2,12 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": false
   },
   "newProjectRoot": "projects",
   "projects": {
-    "okta-angular-signals-example": {
+    "okta-angular-auth-signals-example": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -56,16 +57,13 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "okta-angular-signals-example:build:production"
+              "buildTarget": "okta-angular-auth-signals-example:build:production"
             },
             "development": {
-              "buildTarget": "okta-angular-signals-example:build:development"
+              "buildTarget": "okta-angular-auth-signals-example:build:development"
             }
           },
           "defaultConfiguration": "development"
-        },
-        "test": {
-          "builder": "@angular/build:unit-test"
         }
       }
     }

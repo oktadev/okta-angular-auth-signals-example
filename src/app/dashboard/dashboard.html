@@ -1,0 +1,62 @@
+<h1 id="users-heading" class="mb-4 text-xl font-semibold text-gray-900">Users</h1>
+
+<section aria-labelledby="users-heading">
+  @if (usersResource.isLoading()) {
+    <p class="text-gray-500">Loading users...</p>
+  } @else if (usersResource.error()) {
+    <p class="text-red-600" role="alert">Failed to load users.</p>
+  } @else {
+    <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+      <table class="w-full text-sm">
+        <thead class="bg-gray-50 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
+          <tr>
+            <th scope="col" class="px-6 py-3">Name</th>
+            <th scope="col" class="px-6 py-3">Email</th>
+            <th scope="col" class="px-6 py-3">Status</th>
+            <th scope="col" class="px-6 py-3"><span class="sr-only">Groups</span></th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          @for (user of usersResource.value(); track user.id) {
+            <tr [class]="selectedUserId() === user.id ? 'bg-indigo-50' : 'hover:bg-gray-50'">
+              <td class="px-6 py-4 font-medium text-gray-900">
+                {{ user.profile.firstName }} {{ user.profile.lastName }}
+              </td>
+              <td class="px-6 py-4 text-gray-600">{{ user.profile.email }}</td>
+              <td class="px-6 py-4">
+                <span
+                  class="rounded-full px-2 py-0.5 text-xs font-medium"
+                  [class]="statusClass(user.status)"
+                >
+                  {{ user.status }}
+                </span>
+              </td>
+              <td class="px-6 py-4 text-right">
+                <button
+                  type="button"
+                  (click)="selectUser(user.id)"
+                  [attr.aria-expanded]="selectedUserId() === user.id"
+                  [attr.aria-controls]="selectedUserId() === user.id ? 'groups-' + user.id : null"
+                  class="rounded p-1 text-gray-500 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  <span class="sr-only">
+                    Groups for {{ user.profile.firstName }} {{ user.profile.lastName }}
+                  </span>
+                  <span aria-hidden="true">{{ selectedUserId() === user.id ? '▲' : '▼' }}</span>
+                </button>
+              </td>
+            </tr>
+
+            @if (selectedUserId() === user.id) {
+              <tr [id]="'groups-' + user.id">
+                <td colspan="4" class="bg-indigo-50 px-6 py-6">
+                  <app-user-groups [user]="user" />
+                </td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>
