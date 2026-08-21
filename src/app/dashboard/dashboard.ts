@@ -1,11 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { Okta } from '../okta';
-import { UserGroups } from '../user-groups/user-groups';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [UserGroups],
+  imports: [],
   templateUrl: './dashboard.html',
 })
 export class Dashboard {

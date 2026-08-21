@@ -23,10 +23,5 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideHttpClient(withInterceptors([oktaAuthInterceptor])),
-    provideOktaAuth(
-      withOktaConfig({
-        oktaAuth
-      })
-    ),
   ],
 };
