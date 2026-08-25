@@ -63,7 +63,7 @@ const oktaAuth = new OktaAuth({
   clientId: '{yourClientId}',
   issuer: 'https://{yourOktaDomain}',
   redirectUri: `${window.location.origin}/login/callback`,
-  scopes: ['openid', 'profile', 'email', 'okta.users.read'],
+  scopes: ['openid', 'profile', 'offline_access', 'email', 'okta.users.read'],
   pkce: true,
   dpop: true,
 });
